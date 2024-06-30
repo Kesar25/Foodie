@@ -2,7 +2,8 @@ const User = require("../models/userSchema")
 const { body, validationResult } = require("express-validator")
 const express=require("express");
 const router=express.Router();
-const bcrypt=require('bcrypt')
+const bcrypt=require('bcrypt');
+const jwt=require("jsonwebtoken");
 
 router.post("/createuser", [body('name', 'Enter a valid name').isLength({ min: 2 }),
     body('email', 'Enter a valid email').isEmail(),
@@ -59,8 +60,10 @@ router.post("/login",[body('email', 'Please enter a valid email').isEmail(), bod
             }
         }
 
+        const authToken=jwt.sign(data,process.env.JWT_SECRET_KEY);
+
         console.log(user);
-        res.json({success:true, message:"User logged in successfully"})
+        res.json({success:true, authToken})
     }catch(e){
         console.log(e)
     }
