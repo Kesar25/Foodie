@@ -34,7 +34,13 @@ router.post("/createuser", [body('name', 'Enter a valid name').isLength({ min: 2
                 let success=false
                 res.status(500).send({success,error:"Some error occured"})
             }
-    
+    }
+)
+
+router.post("/login",[body('email', 'Please enter a valid email').isEmail(), body('password', 'Password should at least 6 characters long').isLength({min:6})], 
+    async(req,res)=>{
+        
     })
+    
 
 module.exports=router;
