@@ -61,8 +61,6 @@ router.post("/login",[body('email', 'Please enter a valid email').isEmail(), bod
         }
 
         const authToken=jwt.sign(data,process.env.JWT_SECRET_KEY);
-
-        console.log(user);
         res.json({success:true, authToken})
     }catch(e){
         console.log(e)
